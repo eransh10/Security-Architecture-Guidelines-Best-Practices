@@ -148,4 +148,4 @@ Attribution should appear in the document, presentation, or wherever the work is
 
 ---
 
-*Maintained by Eran Shpigelman — eransh10@gmail.com*
+*Maintained by Eran Shpigelman — eransh10@gmail.com, https://www.linkedin.com/in/shpigelman/*
