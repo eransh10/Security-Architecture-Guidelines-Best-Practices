@@ -24,6 +24,10 @@ Security-Architecture-Guidelines-Best-Practices/
 │       ├── pam_architecture.docx                     Reference document
 │       └── pam_architecture_deck.pptx                Slide deck
 │
+├── Cloud/                          Cloud Security Architecture (AWS · Azure · GCP)
+│   ├── cloud_security_architecture.docx         Reference document (8-section, 550+ paragraphs)
+│   └── cloud_security_architecture_deck.pptx    Slide deck (33 slides)
+│
 ├── gpt_architecture.docx           AI/LLM Security Architecture reference
 ├── gpt_architecture_deck.pptx      AI/LLM Security slide deck
 │
@@ -94,6 +98,25 @@ Frameworks: NIST SP 800-53 Rev 5 | MITRE ATT&CK | CIS Controls
 
 ---
 
+### Cloud Security Architecture (`Cloud/`)
+
+Prescriptive, provider-specific security architecture covering AWS, Azure, and GCP with a Zero Trust emphasis. Includes:
+
+- Executive Summary: Zero Trust principles, Shared Responsibility Model
+- AWS: SCPs, IRSA, Permission Boundaries, PrivateLink, KMS CMKs, GuardDuty, Security Hub, Control Tower
+- Azure: Managed Identities, PIM, Conditional Access, Private Endpoints, Key Vault CMK, Defender for Cloud, Sentinel
+- GCP: Workload Identity Federation, VPC Service Controls, Cloud KMS/CMEK, Secret Manager, SCC, Chronicle SIEM
+- Multi-Cloud Zero Trust: unified identity federation, cross-cloud workload identity, centralized SIEM, CSPM stack
+- MITRE ATT&CK Cloud technique table (T1078.004, T1530, T1537, T1098.001, T1190, T1552.005, T1136.003, T1580, T1619)
+- NIST SP 800-53 Rev 5 control mapping: AC-2, AC-3, AC-17, AU-2, AU-9, IA-5, SC-7, SC-8, SC-28, SI-3
+- Implementation Roadmap: 4 phases (0–30 days through 180 days+) with success metrics
+
+Deck: 33 slides. Document: 8 sections, 550+ paragraphs.
+
+Frameworks: NIST SP 800-53 Rev 5 | MITRE ATT&CK Cloud | CIS Benchmarks (AWS/Azure/GCP) | AWS FSBP | Microsoft CAF | GCP Security Foundations Blueprint
+
+---
+
 ### AI/LLM Security Architecture (`gpt_architecture.*`)
 
 Security architecture patterns for AI and Large Language Model deployments, covering threat modeling, data protection, access control, and governance for AI systems.
@@ -136,6 +159,11 @@ Attribution should appear in the document, presentation, or wherever the work is
 | RFC 9449 (DPoP) | OAuth 2.0 Demonstrating Proof of Possession |
 | RFC 7662 | OAuth 2.0 Token Introspection |
 | SCIM 2.0 (RFC 7644) | System for Cross-domain Identity Management |
+| MITRE ATT&CK Cloud | Cloud-specific adversary techniques (IaaS, SaaS, Office 365) |
+| CIS Benchmarks | CIS AWS Foundations, CIS Azure Foundations, CIS GCP Foundations |
+| AWS Foundational Security Best Practices (FSBP) | AWS Security Hub standard |
+| Microsoft Cloud Adoption Framework (CAF) | Azure landing zone security architecture |
+| GCP Security Foundations Blueprint | GCP organization-level security baseline |
 
 ---
 
@@ -143,9 +171,10 @@ Attribution should appear in the document, presentation, or wherever the work is
 
 | Date | Change |
 |------|--------|
+| March 2026 | Added Cloud Security Architecture (AWS/Azure/GCP): 33-slide deck + 8-section reference document; MITRE ATT&CK Cloud + NIST SP 800-53 mapping; Multi-Cloud Zero Trust architecture |
 | March 2026 | Added IAM folder structure (SSO, IGA, PAM); updated SSO deck (31 slides, 12 technical corrections, 4 new slides); updated IGA deck (29 slides, 9 corrections, 3 new slides) |
 | March 2026 | Initial repository with SSO, IGA, PAM, Kubernetes, and AI/LLM architecture documents |
 
 ---
 
-*Maintained by Eran Shpigelman — eransh10@gmail.com, https://www.linkedin.com/in/shpigelman/*
+*Maintained by Eran Shpigelman — eransh10@gmail.com*
