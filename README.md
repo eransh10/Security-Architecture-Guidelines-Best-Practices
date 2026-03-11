@@ -1,6 +1,6 @@
 # Security Architecture Guidelines & Best Practices
 
-A structured reference library of security architecture documents, slide decks, and implementation guidance covering Identity & Access Management, Kubernetes security, and AI/LLM security design patterns.
+A structured reference library of security architecture documents, slide decks, and implementation guidance covering Identity & Access Management, Cloud Security, Kubernetes security, and AI/LLM security design patterns.
 
 All documents are authored by **Eran Shpigelman** and are intended for security architects, security engineers, and technical leadership.
 
@@ -25,8 +25,9 @@ Security-Architecture-Guidelines-Best-Practices/
 │       └── pam_architecture_deck.pptx                Slide deck
 │
 ├── Cloud/                          Cloud Security Architecture (AWS · Azure · GCP)
-│   ├── cloud_security_architecture.docx         Reference document (8-section, 550+ paragraphs)
-│   └── cloud_security_architecture_deck.pptx    Slide deck (33 slides)
+│   ├── cloud_security_architecture.docx         Reference document (12-section, 816+ paragraphs)
+│   ├── cloud_security_architecture_deck.pptx    Slide deck (45 slides)
+│   └── build_cloud_doc.js                       Source builder (docx-js)
 │
 ├── gpt_architecture.docx           AI/LLM Security Architecture reference
 ├── gpt_architecture_deck.pptx      AI/LLM Security slide deck
@@ -100,20 +101,41 @@ Frameworks: NIST SP 800-53 Rev 5 | MITRE ATT&CK | CIS Controls
 
 ### Cloud Security Architecture (`Cloud/`)
 
-Prescriptive, provider-specific security architecture covering AWS, Azure, and GCP with a Zero Trust emphasis. Includes:
+Prescriptive, provider-specific security architecture for AWS, Azure, and GCP with a Zero Trust emphasis. 12-section reference document (816+ paragraphs) and a 45-slide deck.
 
-- Executive Summary: Zero Trust principles, Shared Responsibility Model
-- AWS: SCPs, IRSA, Permission Boundaries, PrivateLink, KMS CMKs, GuardDuty, Security Hub, Control Tower
-- Azure: Managed Identities, PIM, Conditional Access, Private Endpoints, Key Vault CMK, Defender for Cloud, Sentinel
-- GCP: Workload Identity Federation, VPC Service Controls, Cloud KMS/CMEK, Secret Manager, SCC, Chronicle SIEM
-- Multi-Cloud Zero Trust: unified identity federation, cross-cloud workload identity, centralized SIEM, CSPM stack
-- MITRE ATT&CK Cloud technique table (T1078.004, T1530, T1537, T1098.001, T1190, T1552.005, T1136.003, T1580, T1619)
-- NIST SP 800-53 Rev 5 control mapping: AC-2, AC-3, AC-17, AU-2, AU-9, IA-5, SC-7, SC-8, SC-28, SI-3
-- Implementation Roadmap: 4 phases (0–30 days through 180 days+) with success metrics
+#### Reference Document — 12 Sections
 
-Deck: 33 slides. Document: 8 sections, 550+ paragraphs.
+1. **Core Security Principles** — Zero Trust, shared responsibility, operational sustainability, machine identity as a first-class concern
+2. **AWS** — SCPs, IRSA/EKS Pod Identity, Permission Boundaries, PrivateLink, KMS CMKs, GuardDuty, Security Hub, Control Tower; machine identity governance, service-to-service Zero Trust, dynamic secrets, runtime detection, supply chain security
+3. **Azure** — Managed Identities, PIM, Conditional Access, Private Endpoints, Key Vault CMK, Defender for Cloud, Sentinel; DSPM with Microsoft Purview
+4. **GCP** — Workload Identity Federation, VPC Service Controls, Cloud KMS/CMEK, Secret Manager, SCC, Chronicle SIEM; Org Policy governance
+5. **Advanced Security Domains** (cross-cloud) — Machine Identity Governance, Service-to-Service Zero Trust (SPIFFE/SPIRE, Istio mTLS), Dynamic Secrets Architecture (HashiCorp Vault), DSPM (Discover → Classify → Monitor), Runtime Threat Detection (Falco/eBPF, GuardDuty, UEBA), Software Supply Chain Security (SBOM, Sigstore/Cosign, SLSA Level 3), Centralized Identity and Logging Architecture
+6. **Multi-Cloud Zero Trust** — unified IdP federation, cross-cloud workload identity, private cross-cloud connectivity, multi-cloud SecOps stack
+7. **MITRE ATT&CK for Cloud** — technique table (T1078.004, T1530, T1537, T1098.001, T1190, T1552.005, T1136.003, T1580, T1619)
+8. **NIST SP 800-53 Rev 5** — control mapping across all three providers (AC-2, AC-3, AC-17, AU-2, AU-9, IA-5, SC-7, SC-8, SC-28, SI-3)
+9. **Implementation Roadmap** — 4 phases (0–30 days through 180 days+) with success metrics
+10. **AI Security and LLM Governance** — OWASP LLM Top 10, prompt injection, data leakage, NIST AI RMF (Govern/Map/Measure/Manage)
+11. **Cloud Attack Path Analysis** — graph-based privilege escalation analysis, Wiz / BloodHound / Defender tooling
+12. **Operational Security Metrics** — IAM, detection, data protection, and supply chain KPIs with targets and remediation SLAs
 
-Frameworks: NIST SP 800-53 Rev 5 | MITRE ATT&CK Cloud | CIS Benchmarks (AWS/Azure/GCP) | AWS FSBP | Microsoft CAF | GCP Security Foundations Blueprint
+**Key Takeaways** — 8 strategic principles synthesizing the full document
+
+#### Slide Deck — 45 Slides across 10 Sections
+
+| Section | Slides | Content |
+|---------|--------|---------|
+| 01 Introduction | 1–4 | Title, agenda, Zero Trust principles, shared responsibility |
+| 02 Core Principles | 5 | 5 architectural principles |
+| 03 AWS | 6–11 | IAM, Network, Data, Detection, Governance, Machine Identity |
+| 04 Azure | 12–17 | Identity, Network, Data, Defender, DSPM |
+| 05 GCP | 18–22 | IAM, Network, Data, SCC, Governance |
+| 06 Advanced Domains | 23–29 | Machine Identity, Service ZT, Dynamic Secrets, DSPM, Runtime, Supply Chain |
+| 07 Multi-Cloud ZT | 30–32 | Identity federation, cross-cloud connectivity, SecOps stack |
+| 08 Frameworks | 33–37 | MITRE ATT&CK for Cloud, NIST SP 800-53 mapping |
+| 09 Roadmap | 38–39 | Phased implementation roadmap |
+| 10 AI · Attacks · Metrics | 40–45 | AI Security, Attack Path Analysis, Operational Metrics, Closing |
+
+Frameworks: NIST SP 800-53 Rev 5 | MITRE ATT&CK for Cloud | CIS Benchmarks (AWS/Azure/GCP) | AWS FSBP | Microsoft CAF | GCP Security Foundations Blueprint | NIST AI RMF | SLSA | SPIFFE/SPIRE | OWASP LLM Top 10
 
 ---
 
@@ -154,16 +176,21 @@ Attribution should appear in the document, presentation, or wherever the work is
 | NIST SP 800-53 Rev 5 | Security and Privacy Controls |
 | NIST SP 800-63B | Digital Identity Guidelines (AuthN Assurance Levels) |
 | NIST SP 800-207 | Zero Trust Architecture |
+| NIST AI RMF | AI Risk Management Framework (Govern, Map, Measure, Manage) |
 | MITRE ATT&CK | Adversarial Tactics, Techniques & Procedures |
+| MITRE ATT&CK for Cloud | Cloud-specific adversary techniques (IaaS, SaaS, Office 365) |
+| MITRE ATLAS | Adversarial Threat Landscape for AI Systems |
 | CIS Controls v8 | Implementation Groups for security baselines |
+| CIS Benchmarks | CIS AWS Foundations, CIS Azure Foundations, CIS GCP Foundations |
 | RFC 9449 (DPoP) | OAuth 2.0 Demonstrating Proof of Possession |
 | RFC 7662 | OAuth 2.0 Token Introspection |
 | SCIM 2.0 (RFC 7644) | System for Cross-domain Identity Management |
-| MITRE ATT&CK Cloud | Cloud-specific adversary techniques (IaaS, SaaS, Office 365) |
-| CIS Benchmarks | CIS AWS Foundations, CIS Azure Foundations, CIS GCP Foundations |
 | AWS Foundational Security Best Practices (FSBP) | AWS Security Hub standard |
 | Microsoft Cloud Adoption Framework (CAF) | Azure landing zone security architecture |
 | GCP Security Foundations Blueprint | GCP organization-level security baseline |
+| SPIFFE / SPIRE | Workload identity standard for service-to-service Zero Trust |
+| SLSA (Supply-chain Levels for Software Artifacts) | Software supply chain integrity framework (target: Level 3) |
+| OWASP LLM Top 10 | Top security risks for Large Language Model applications |
 
 ---
 
@@ -171,7 +198,10 @@ Attribution should appear in the document, presentation, or wherever the work is
 
 | Date | Change |
 |------|--------|
-| March 2026 | Added Cloud Security Architecture (AWS/Azure/GCP): 33-slide deck + 8-section reference document; MITRE ATT&CK Cloud + NIST SP 800-53 mapping; Multi-Cloud Zero Trust architecture |
+| March 2026 | Cloud: added Section 5 Advanced Security Domains (Machine Identity, Service-to-Service ZT, Dynamic Secrets, DSPM, Runtime Detection, Supply Chain, Centralized Identity & Logging); added Key Takeaways; renumbered sections 6–12; document now 816+ paragraphs |
+| March 2026 | Cloud: expanded deck from 33 to 45 slides — 10 new domain slides, 3 fixes, updated agenda; added Section 05 Advanced Security Domains and Section 10 AI/Attacks/Metrics to deck |
+| March 2026 | Cloud: 14 precision corrections to reference document (MITRE naming, language softening, service mesh caveat, operational sustainability principle, Operational Security Metrics section) |
+| March 2026 | Added Cloud Security Architecture (AWS/Azure/GCP): 33-slide deck + 8-section reference document; MITRE ATT&CK for Cloud + NIST SP 800-53 mapping; Multi-Cloud Zero Trust architecture |
 | March 2026 | Added IAM folder structure (SSO, IGA, PAM); updated SSO deck (31 slides, 12 technical corrections, 4 new slides); updated IGA deck (29 slides, 9 corrections, 3 new slides) |
 | March 2026 | Initial repository with SSO, IGA, PAM, Kubernetes, and AI/LLM architecture documents |
 
